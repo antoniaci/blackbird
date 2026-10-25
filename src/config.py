@@ -36,4 +36,5 @@ FONT_NAME_REGULAR = "Montserrat"
 FONT_NAME_BOLD = "Montserrat-Bold"
 
 aiModel = None
+ai = False
 ai_analysis = None

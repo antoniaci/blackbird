@@ -22,31 +22,29 @@
         "url": "http://en.gravatar.com/p1ngul1n0.json",
         "status": "FOUND",
         "metadata": [
-            [
-                {
-                    "schema": "JSON",
-                    "type": "Image",
-                    "name": "Avatar",
-                    "path": [
-                        "entry",
-                        0,
-                        "thumbnailUrl"
-                    ],
-                    "downloaded": false,
-                    "value": "https://2.gravatar.com/avatar/ef2256bcf70087d4e4b57c6b9cd39c82"
-                },
-                {
-                    "schema": "JSON",
-                    "type": "String",
-                    "name": "Name",
-                    "path": [
-                        "entry",
-                        0,
-                        "displayName"
-                    ],
-                    "value": "p1ngul1n0"
-                }
-            ]
+            {
+                "schema": "JSON",
+                "type": "Image",
+                "name": "Avatar",
+                "path": [
+                    "entry",
+                    0,
+                    "thumbnailUrl"
+                ],
+                "downloaded": false,
+                "value": "https://2.gravatar.com/avatar/ef2256bcf70087d4e4b57c6b9cd39c82"
+            },
+            {
+                "schema": "JSON",
+                "type": "String",
+                "name": "Name",
+                "path": [
+                    "entry",
+                    0,
+                    "displayName"
+                ],
+                "value": "p1ngul1n0"
+            }
         ]
     },
     {
@@ -66,24 +64,22 @@
         "url": "https://nitter.privacydev.net/p1ngul1n0",
         "status": "FOUND",
         "metadata": [
-            [
-                {
-                    "schema": "HTML",
-                    "type": "Image",
-                    "name": "Avatar",
-                    "prefix": "https://nitter.privacydev.net",
-                    "path": "<a[^>]*class=\"profile-card-avatar\"[^>]*><img[^>]+src=\"([^\"]+)\"",
-                    "downloaded": false,
-                    "value": "https://nitter.privacydev.net/pic/pbs.twimg.com%2Fprofile_images%2F1604626688813531136%2FJ7jmDiGV_400x400.jpg"
-                },
-                {
-                    "schema": "HTML",
-                    "type": "String",
-                    "name": "Name",
-                    "path": "<a[^>]*class=\"profile-card-fullname\"[^>]*>([^<]+)",
-                    "value": "p1ngul1n0"
-                }
-            ]
+            {
+                "schema": "HTML",
+                "type": "Image",
+                "name": "Avatar",
+                "prefix": "https://nitter.privacydev.net",
+                "path": "<a[^>]*class=\"profile-card-avatar\"[^>]*><img[^>]+src=\"([^\"]+)\"",
+                "downloaded": false,
+                "value": "https://nitter.privacydev.net/pic/pbs.twimg.com%2Fprofile_images%2F1604626688813531136%2FJ7jmDiGV_400x400.jpg"
+            },
+            {
+                "schema": "HTML",
+                "type": "String",
+                "name": "Name",
+                "path": "<a[^>]*class=\"profile-card-fullname\"[^>]*>([^<]+)",
+                "value": "p1ngul1n0"
+            }
         ]
     },
     {
