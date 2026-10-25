@@ -1,5 +1,6 @@
 import sys
 import os
+import io
 import unittest
 from rich.console import Console
 
@@ -22,7 +23,7 @@ config.dump = True
 config.csv = None
 config.pdf = None
 config.filter = "name=Gravatar"
-config.console = Console()
+config.console = Console(file=io.StringIO())
 config.userAgent = getRandomUserAgent(config)
 config.max_concurrent_requests = 30
 

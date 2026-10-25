@@ -1,5 +1,6 @@
 import sys
 import os
+import io
 import json
 import unittest
 from rich.console import Console
@@ -12,7 +13,7 @@ from src.modules.export.pdf import saveToPdf
 from src.modules.export.file_operations import createSaveDirectory
 from datetime import datetime
 
-config.console = Console()
+config.console = Console(file=io.StringIO())
 
 config.no_nsfw = None
 config.proxy = None

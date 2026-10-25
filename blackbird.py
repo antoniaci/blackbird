@@ -28,6 +28,10 @@ load_dotenv()
 
 
 def initiate():
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
+
     if not os.path.exists("logs/"):
         os.makedirs("logs/")
     logging.basicConfig(

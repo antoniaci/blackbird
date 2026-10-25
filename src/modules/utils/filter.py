@@ -10,56 +10,90 @@ def filterFoundAccounts(site):
 
 
 def parseFilter(filter):
-    pattern = r"(\w+)([=~><!]+)([^ ]+)\s*(and|or)?\s*"
-    matches = re.findall(pattern, filter)
+    if not filter or not isinstance(filter, str):
+        return [], []
 
     conditions = []
     logical_ops = []
+    condition_pattern = re.compile(
+        r"([A-Za-z0-9_]+)\s*(>=|<=|!=|=|~|>|<)\s*([^\s]+)"
+    )
+    logical_pattern = re.compile(r"(and|or)\b", re.IGNORECASE)
+    position = 0
 
-    for match in matches:
-        conditions.append((match[0], match[1], match[2]))
-        if match[3]:
-            logical_ops.append(match[3])
+    while position < len(filter):
+        while position < len(filter) and filter[position].isspace():
+            position += 1
+        match = condition_pattern.match(filter, position)
+        if not match or match.group(3)[0] in "=~><!":
+            return [], []
+
+        prop, operator, value = match.groups()
+        conditions.append((prop, operator, value))
+        position = match.end()
+
+        while position < len(filter) and filter[position].isspace():
+            position += 1
+        if position == len(filter):
+            break
+
+        logical_match = logical_pattern.match(filter, position)
+        if not logical_match:
+            return [], []
+        logical_ops.append(logical_match.group(1).lower())
+        position = logical_match.end()
+
+    if len(logical_ops) != len(conditions) - 1:
+        return [], []
 
     return conditions, logical_ops
 
 
 def evaluate_condition(prop, operator, value, site):
-    prop = prop.lower()
-    value = value.lower()
+    if not isinstance(site, dict):
+        return False
+
+    prop = str(prop).lower()
+    value = str(value).lower()
     if prop not in site:
         return False
 
-    site_value = str(site[prop])
-    site_value = site_value.lower()
+    site_value = str(site[prop]).lower()
 
     if operator == "=":
         return site_value == value
     elif operator == "~":
         return value in site_value
-    elif operator == ">":
-        return float(site_value) > float(value)
-    elif operator == "<":
-        return float(site_value) < float(value)
-    elif operator == ">=":
-        return float(site_value) >= float(value)
-    elif operator == "<=":
-        return float(site_value) <= float(value)
+    elif operator in {">", "<", ">=", "<="}:
+        try:
+            site_numeric = float(site_value)
+            value_numeric = float(value)
+        except (TypeError, ValueError):
+            return False
+
+        if operator == ">":
+            return site_numeric > value_numeric
+        elif operator == "<":
+            return site_numeric < value_numeric
+        elif operator == ">=":
+            return site_numeric >= value_numeric
+        elif operator == "<=":
+            return site_numeric <= value_numeric
     elif operator == "!=":
         return site_value != value
-    else:
-        return False
+    return False
 
 
 def filterAccounts(filter, site):
     conditions, logical_ops = parseFilter(filter)
-    result = evaluate_condition(*conditions[0], site)
-
     if not conditions:
         print(
-            '⭕ Filter is not in correct format. Format should be --filter "property=value"'
+            'Filter is not in correct format. Format should be --filter "property=value"'
         )
-        sys.exit()
+        return False
+
+    result = evaluate_condition(*conditions[0], site)
+
     # Evaluate remaining conditions and combine using logical operators
     for i in range(1, len(conditions)):
         next_result = evaluate_condition(*conditions[i], site)
