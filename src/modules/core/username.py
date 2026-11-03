@@ -20,6 +20,7 @@ from ..utils.http_client import do_async_request
 from ..utils.log import logError
 from ..export.dump import dumpContent
 from ..sites.instagram import get_instagram_account_info
+from ..ai.client import extract_data_with_ai
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
