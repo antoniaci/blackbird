@@ -138,15 +138,18 @@ async def fetchResults(username, config):
 
         async def wrappedCheck(site):
             nonlocal completed
+            account = username
+            for char in site.get("strip_bad_char", ""):
+                account = account.replace(char, "")
             postBody = site.get("post_body")
             result = await checkSite(
                 site=site,
                 method="POST" if postBody else "GET",
-                url=site["uri_check"].replace("{account}", username),
+                url=site["uri_check"].replace("{account}", account),
                 session=session,
                 semaphore=semaphore,
                 config=config,
-                data=postBody.replace("{account}", username) if postBody else None,
+                data=postBody.replace("{account}", account) if postBody else None,
                 headers=site.get("headers"),
             )
             completed += 1
