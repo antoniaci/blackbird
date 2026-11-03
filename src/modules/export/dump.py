@@ -1,10 +1,6 @@
 import os
-import sys
 import json
-
-sys.path.append(os.path.join(os.path.dirname(__file__), "..", ""))
-
-from utils.log import logError
+from ..utils.log import logError
 
 
 # Dump HTML data to a .html file

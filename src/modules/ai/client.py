@@ -1,10 +1,10 @@
-from utils.http_client import do_sync_request
+from ..utils.http_client import do_sync_request
 import time
 import sys
 from rich.text import Text
 import json
 from .key_manager import load_api_key_from_file
-from utils.log import logError
+from ..utils.log import logError
 
 def send_prompt(prompt, config):
     config.console.print(f":sparkles: Analyzing with AI...")
