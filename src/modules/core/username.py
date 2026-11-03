@@ -32,6 +32,8 @@ async def checkSite(
     session,
     semaphore,
     config,
+    data=None,
+    headers=None,
 ):
     returnData = {
         "name": site["name"],
@@ -43,7 +45,9 @@ async def checkSite(
     extractedMetadata = []
 
     async with semaphore:
-        response = await do_async_request(method, url, session, config)
+        response = await do_async_request(
+            method, url, session, config, data=data, customHeaders=headers
+        )
         if response == None:
             returnData["status"] = "ERROR"
             return returnData
@@ -134,13 +138,19 @@ async def fetchResults(username, config):
 
         async def wrappedCheck(site):
             nonlocal completed
+            account = username
+            for char in site.get("strip_bad_char", ""):
+                account = account.replace(char, "")
+            postBody = site.get("post_body")
             result = await checkSite(
                 site=site,
-                method="GET",
-                url=site["uri_check"].replace("{account}", username),
+                method="POST" if postBody else "GET",
+                url=site["uri_check"].replace("{account}", account),
                 session=session,
                 semaphore=semaphore,
                 config=config,
+                data=postBody.replace("{account}", account) if postBody else None,
+                headers=site.get("headers"),
             )
             completed += 1
             return result
