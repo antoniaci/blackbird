@@ -7,7 +7,9 @@ def isFile(fileName):
 
 def getLinesFromFile(fileName):
     try:
-        with open(fileName) as f:
+        # utf-8-sig strips the BOM that Windows editors such as Notepad prepend,
+        # which would otherwise become part of the first username.
+        with open(fileName, encoding="utf-8-sig") as f:
             lines = f.read().splitlines()
             return lines
     except:

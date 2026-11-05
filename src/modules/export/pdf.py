@@ -22,13 +22,13 @@ from ..utils.log import logError
 
 def saveToPdf(foundAccounts, resultType, config):
     regularFontFile = os.path.join(
-        os.getcwd(),
+        config.BASE_DIRECTORY,
         config.ASSETS_DIRECTORY,
         config.FONTS_DIRECTORY,
         config.FONT_REGULAR_FILE,
     )
     boldFontFile = os.path.join(
-        os.getcwd(),
+        config.BASE_DIRECTORY,
         config.ASSETS_DIRECTORY,
         config.FONTS_DIRECTORY,
         config.FONT_BOLD_FILE,
@@ -46,7 +46,7 @@ def saveToPdf(foundAccounts, resultType, config):
 
         canva.drawImage(
             os.path.join(
-                os.getcwd(),
+                config.BASE_DIRECTORY,
                 config.ASSETS_DIRECTORY,
                 config.IMAGES_DIRECTORY,
                 "blackbird-logo.png",
@@ -78,7 +78,7 @@ def saveToPdf(foundAccounts, resultType, config):
         identifierWidth = stringWidth(identifier, config.FONT_NAME_BOLD, 11)
         canva.drawImage(
             os.path.join(
-                os.getcwd(),
+                config.BASE_DIRECTORY,
                 config.ASSETS_DIRECTORY,
                 config.IMAGES_DIRECTORY,
                 "correct.png",
@@ -99,7 +99,7 @@ def saveToPdf(foundAccounts, resultType, config):
         canva.setFont(config.FONT_NAME_REGULAR, 8)
         canva.drawImage(
             os.path.join(
-                os.getcwd(),
+                config.BASE_DIRECTORY,
                 config.ASSETS_DIRECTORY,
                 config.IMAGES_DIRECTORY,
                 "warning.png",
@@ -125,7 +125,7 @@ def saveToPdf(foundAccounts, resultType, config):
             # Cabeçalho
             canva.setFillColor("#000000")
             canva.drawImage(
-                os.path.join(os.getcwd(), config.ASSETS_DIRECTORY, config.IMAGES_DIRECTORY, "ai-stars.png"),
+                os.path.join(config.BASE_DIRECTORY, config.ASSETS_DIRECTORY, config.IMAGES_DIRECTORY, "ai-stars.png"),
                 55, height - 245, width=12, height=12, mask="auto"
             )
             canva.setFont(config.FONT_NAME_BOLD, 10)
@@ -200,7 +200,7 @@ def saveToPdf(foundAccounts, resultType, config):
             canva.setFont(config.FONT_NAME_REGULAR, 15)
             canva.drawImage(
                 os.path.join(
-                    os.getcwd(),
+                    config.BASE_DIRECTORY,
                     config.ASSETS_DIRECTORY,
                     config.IMAGES_DIRECTORY,
                     "arrow.png",
@@ -229,7 +229,7 @@ def saveToPdf(foundAccounts, resultType, config):
                 siteWidth = stringWidth(f"{result['name']}", config.FONT_NAME_BOLD, 12)
                 canva.drawImage(
                     os.path.join(
-                        os.getcwd(),
+                        config.BASE_DIRECTORY,
                         config.ASSETS_DIRECTORY,
                         config.IMAGES_DIRECTORY,
                         "link.png",

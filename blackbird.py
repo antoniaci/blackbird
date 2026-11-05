@@ -9,6 +9,13 @@ import time
 from rich.live import Live
 from rich.text import Text
 
+# On Windows a redirected stdout/stderr defaults to the cp1252 locale codec, which
+# cannot encode the emoji in Blackbird's output. Force UTF-8 before rich starts.
+if sys.platform == "win32":
+    for _stream in (sys.stdout, sys.stderr):
+        if hasattr(_stream, "reconfigure"):
+            _stream.reconfigure(encoding="utf-8", errors="replace")
+
 sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 
 import config
@@ -28,8 +35,7 @@ load_dotenv()
 
 
 def initiate():
-    if not os.path.exists("logs/"):
-        os.makedirs("logs/")
+    os.makedirs(os.path.dirname(config.LOG_PATH), exist_ok=True)
     logging.basicConfig(
         filename=config.LOG_PATH,
         level=logging.DEBUG,
@@ -170,7 +176,9 @@ def initiate():
     config.currentUser = None
     config.currentEmail = None
 
-    lines = getLinesFromFile("assets/text/splash.txt")
+    lines = getLinesFromFile(
+        os.path.join(config.BASE_DIRECTORY, config.ASSETS_DIRECTORY, "text", "splash.txt")
+    )
     config.splash_line = random.choice(lines) if lines else ""
 
 

@@ -11,7 +11,8 @@ def getRandomUserAgent(config):
         "data",
         "useragents.txt",
     )
-    userAgents = open(path).read().splitlines()
+    with open(path, encoding="utf-8") as f:
+        userAgents = f.read().splitlines()
     userAgent = random.choice(userAgents)
     if config.verbose:
         config.console.print(f':id: Selected random User-Agent "{userAgent}"')
