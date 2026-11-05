@@ -81,7 +81,7 @@ For more details about the project, visit the <a href="https://p1ngul1n0.gitbook
 
 ### WhatsMyName
 
-Blackbird is fully integrated with [WhatsMyName](https://github.com/WebBreacher/WhatsMyName) project, witch has 600+ sites to perform accurate reverse username search.
+Blackbird is fully integrated with [WhatsMyName](https://github.com/WebBreacher/WhatsMyName) project, which has 600+ sites to perform accurate reverse username search.
 
 ### Sponsors
 
